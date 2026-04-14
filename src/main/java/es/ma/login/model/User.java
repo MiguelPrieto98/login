@@ -20,6 +20,22 @@ public class User {
 
     }
 
+    public boolean validarDni(String dni) {
+        return dni.matches("^[0-9]{8}[A-Za-z]$");
+    }
+
+    public boolean validarNombre(String texto) {
+        return texto.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$");
+    }
+
+    public boolean validarClave(String clave) {
+        return clave.length() >= 6;
+    }
+
+    public boolean validarCorreo(String correo) {
+        return correo.matches("^[^@]+@[^@]+$");
+    }
+
     public boolean validar(String validUser, String validPass) {
         return username.equals(validUser) && password.equals(validPass);
 
