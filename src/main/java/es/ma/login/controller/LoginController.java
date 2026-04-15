@@ -1,30 +1,27 @@
 package es.ma.login.controller;
 
+import static es.ma.login.controller.LoginControllerConstants.APELLIDO;
+import static es.ma.login.controller.LoginControllerConstants.BIENVENIDO;
+import static es.ma.login.controller.LoginControllerConstants.CLAVE;
+import static es.ma.login.controller.LoginControllerConstants.CLAVE_PRUEVA;
+import static es.ma.login.controller.LoginControllerConstants.CORREO;
+import static es.ma.login.controller.LoginControllerConstants.DNI;
+import static es.ma.login.controller.LoginControllerConstants.ERROR;
+import static es.ma.login.controller.LoginControllerConstants.NOMBRE_PRUEBA;
+import static es.ma.login.controller.LoginControllerConstants.NOMBRE_USUARIO;
 import es.ma.login.model.User;
 import es.ma.login.view.LoginView;
 import lombok.Data;
 
 @Data
 public class LoginController {
-    public static final String NOMBRE_USUARIO = "Escribe el nombre del usuario";
-    public static final String APELLIDO = "Escribe el apellido del usuario";
-    public static final String DNI = "Escribe el DNI del usuario";
-    public static final String CORREO = "Escribe el correo del usuario";
-    public static final String CLAVE = "Escribe la contraseña del usuario";
-    public static final String BIENVENIDO = "Bienvenido";
-    public static final String ERROR = "Error";
-    public static final String NOMBRE_PRUEBA = "PRUEBA";
-    public static final String CLAVE_PRUEVA = "PRUEBA";
-    public static final String NOMBRE_ERROR = "Nombre inválido";
-    public static final String APELLIDO_ERROR = "Apellido inválido";
-    public static final String DNI_ERROR = "DNI inválido";
-    public static final String CORREO_ERROR = "Correo inválido";
-    public static final String CLAVE_ERROR = "Clave inválida";
 
     private final LoginView view;
+    private final User model;
 
-    public LoginController(LoginView view) {
+    public LoginController(LoginView view, User model) {
         this.view = view;
+        this.model = model;
     }
 
     public void iniciar() {
@@ -32,31 +29,12 @@ public class LoginController {
         String apellido = view.pedirDato(APELLIDO);
         String dni = view.pedirDato(DNI);
         String correo = view.pedirDato(CORREO);
-        String contraseña = view.pedirDato(CLAVE);
+        String clave = view.pedirDato(CLAVE);
 
-        User usuario = new User(nombre, apellido, dni, correo, contraseña);
-        if (!usuario.validarNombre(nombre)) {
-            view.mostrarMensaje(NOMBRE_ERROR);
-            return;
-        }
+        User usuario = new User(nombre, apellido, dni, correo, clave);
 
-        if (!usuario.validarNombre(apellido)) {
-            view.mostrarMensaje(APELLIDO_ERROR);
-            return;
-        }
-
-        if (!usuario.validarDni(dni)) {
-            view.mostrarMensaje(DNI_ERROR);
-            return;
-        }
-
-        if (!usuario.validarCorreo(correo)) {
-            view.mostrarMensaje(CORREO_ERROR);
-            return;
-        }
-
-        if (!usuario.validarClave(contraseña)) {
-            view.mostrarMensaje(CLAVE_ERROR);
+        if (!usuario.esValido()) {
+            view.mostrarMensaje(usuario.getUltimoError());
             return;
         }
 
@@ -65,6 +43,6 @@ public class LoginController {
         } else {
             view.mostrarMensaje(ERROR);
         }
-
     }
+
 }
