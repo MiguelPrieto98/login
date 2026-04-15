@@ -10,8 +10,12 @@ import static es.ma.login.model.UserConstants.REGEX_USER_NAME;
 import static es.ma.login.model.UserConstants.REGEX_USER_SURNAME;
 import static es.ma.login.model.UserConstants.SURNAME_ERROR;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class User {
 
     private String username;
@@ -31,30 +35,32 @@ public class User {
     }
 
     private boolean validarRegex(String valor, String regex) {
-        return valor != null && valor.matches(regex);
+        return valor != null && !valor.trim().isEmpty() && valor.matches(regex);
     }
 
     private boolean validarNombre() {
-        return validarRegex(username,REGEX_USER_NAME );
+        return validarRegex(username, REGEX_USER_NAME);
     }
 
     private boolean validarApellido() {
-        return validarRegex(usersurname,REGEX_USER_SURNAME );
+        return validarRegex(usersurname, REGEX_USER_SURNAME);
     }
 
     private boolean validarDni() {
-        return validarRegex(id,REGEX_USER_IDN );
+        return validarRegex(id, REGEX_USER_IDN);
     }
 
     private boolean validarCorreo() {
-        return validarRegex(email,REGEX_USER_EMAIL );
+        return validarRegex(email, REGEX_USER_EMAIL);
     }
 
     private boolean validarClave() {
-        return password != null && password.length() >= 6;
+        return password != null && password.trim().length() >= 6;
+
     }
 
     public boolean esValido() {
+        ultimoError = null;
 
         if (!validarNombre()) {
             ultimoError = NAME_ERROR;
@@ -85,6 +91,10 @@ public class User {
     }
 
     public boolean validar(String validUser, String validPass) {
-        return username.equals(validUser) && password.equals(validPass);
+        return validUser != null && validPass != null
+                && validUser.equals(email)
+                && validPass.equals(password);
+
     }
+
 }
