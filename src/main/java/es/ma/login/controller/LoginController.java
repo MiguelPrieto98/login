@@ -38,7 +38,7 @@ public class LoginController {
             return;
         }
 
-        if (usuario.validar(NOMBRE_PRUEBA, CLAVE_PRUEVA)) {
+        if (usuario.validar(EMAIL_PRUEBA, CLAVE_PRUEVA)) {
             view.mostrarMensaje(BIENVENIDO);
         } else {
             view.mostrarMensaje(ERROR);

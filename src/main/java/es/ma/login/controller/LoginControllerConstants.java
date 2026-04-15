@@ -8,7 +8,7 @@ public class LoginControllerConstants {
     public static final String CLAVE = "Escribe la contraseña del usuario";
     public static final String BIENVENIDO = "Bienvenido";
     public static final String ERROR = "Error";
-    public static final String NOMBRE_PRUEBA = "PRUEBA";
+    public static final String EMAIL_PRUEBA = "PRUEBA@PRUEBA.ES";
     public static final String CLAVE_PRUEVA = "PRUEBA";
     public static final String NOMBRE_ERROR = "Nombre inválido";
     public static final String APELLIDO_ERROR = "Apellido inválido";
