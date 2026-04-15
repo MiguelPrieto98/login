@@ -1,3 +1,4 @@
+
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -9,25 +10,25 @@ import es.ma.login.view.LoginView;
 
 public class LoginControllerTest {
 
-    @Test
-    void loginCorrecto_muestraBienvenido() {
+  @Test
+void loginCorrecto_muestraBienvenido() {
 
-        LoginView view = mock(LoginView.class);
+    LoginView view = mock(LoginView.class);
 
-        User usuario = mock(User.class);
-        when(usuario.esValido()).thenReturn(true);
-        when(usuario.getEmail()).thenReturn("a@b.com");
-        when(usuario.getPassword()).thenReturn("123456");
+    User usuario = mock(User.class);
+    when(usuario.esValido()).thenReturn(true);
+    when(usuario.getEmail()).thenReturn("a@b.com");
+    when(usuario.getPassword()).thenReturn("123456");
+    when(usuario.validar("a@b.com", "123456")).thenReturn(true);
 
-        when(view.obtenerUsuario()).thenReturn(usuario);
+    when(view.obtenerUsuario()).thenReturn(usuario);
 
-        User model = mock(User.class);
-        when(model.validar("a@b.com", "123456")).thenReturn(true);
+    LoginController controller = new LoginController(view, null);
 
-        LoginController controller = new LoginController(view, model);
+    controller.iniciar();
 
-        controller.iniciar();
+    verify(view).mostrarMensaje("Bienvenido");
+}
 
-        verify(view).mostrarMensaje("Bienvenido");
-    }
+
 }
