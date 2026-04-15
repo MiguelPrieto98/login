@@ -1,6 +1,8 @@
 package es.ma.login.controller;
 
 import static es.ma.login.controller.LoginControllerConstants.BIENVENIDO;
+import static es.ma.login.controller.LoginControllerConstants.CLAVE_PRUEVA;
+import static es.ma.login.controller.LoginControllerConstants.EMAIL_PRUEBA;
 import static es.ma.login.controller.LoginControllerConstants.ERROR;
 import static es.ma.login.controller.LoginControllerConstants.ERROR_VALIDACION;
 import static es.ma.login.controller.LoginControllerConstants.OPERACION_CANCELADA;
@@ -33,10 +35,12 @@ public class LoginController {
             return;
         }
 
-        if (model.validar(usuario.getEmail(), usuario.getPassword())) {
+        if (usuario.getEmail().equals(EMAIL_PRUEBA)
+                && usuario.getPassword().equals(CLAVE_PRUEVA)) {
             view.mostrarMensaje(BIENVENIDO);
         } else {
             view.mostrarMensaje(ERROR);
         }
+
     }
 }

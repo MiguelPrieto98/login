@@ -10,12 +10,9 @@ import static es.ma.login.model.UserConstants.REGEX_USER_NAME;
 import static es.ma.login.model.UserConstants.REGEX_USER_SURNAME;
 import static es.ma.login.model.UserConstants.SURNAME_ERROR;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-@Getter
-@Setter
+
 public class User {
 
     private String username;
@@ -91,10 +88,11 @@ public class User {
     }
 
     public boolean validar(String validUser, String validPass) {
-        return validUser != null && validPass != null
-                && validUser.equals(email)
-                && validPass.equals(password);
+        if (email == null || password == null) {
+            return false;
+        }
 
+        return email.equals(validUser) && password.equals(validPass);
     }
 
 }
